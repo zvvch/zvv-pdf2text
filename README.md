@@ -2,8 +2,6 @@
 
 A high-performance, self-hosted PDF-to-text extraction API built with FastAPI and PyMuPDF.
 
-**Live:** https://pdf2text.rapold.io
-
 ## Features
 
 - **🔗 URL Extraction**: Fetch PDFs directly from any public URL
@@ -18,7 +16,7 @@ A high-performance, self-hosted PDF-to-text extraction API built with FastAPI an
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 https://pdf2text.rapold.io                  │
+│                   PDF Extract Service                       │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    │
@@ -32,8 +30,6 @@ A high-performance, self-hosted PDF-to-text extraction API built with FastAPI an
 │                      │ PDF Download│                        │
 │                      └─────────────┘                        │
 │                                                             │
-├─────────────────────────────────────────────────────────────┤
-│  Cloudflare Tunnel: mra_pve1_net → LXC 104 (192.168.1.86)  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -69,7 +65,7 @@ docker run -d --name pdf-extract-service -p 8000:8000 --restart unless-stopped p
 ### POST /extract (URL)
 
 ```bash
-curl -X POST https://pdf2text.rapold.io/extract \
+curl -X POST http://localhost:8000/extract \
   -H "Content-Type: application/json" \
   -d '{
     "source": {"url": "https://example.com/doc.pdf"},
@@ -84,7 +80,7 @@ curl -X POST https://pdf2text.rapold.io/extract \
 ### POST /extract/upload (File)
 
 ```bash
-curl -X POST https://pdf2text.rapold.io/extract/upload \
+curl -X POST http://localhost:8000/extract/upload \
   -F "file=@document.pdf" \
   -F "normalize_whitespace=true" \
   -F "remove_headers_footers=true" \
@@ -149,33 +145,6 @@ pdf-extract-service/
 └── README.md
 ```
 
-## Deployment
-
-### Production (Proxmox LXC + Cloudflare Tunnel)
-
-**Live URLs:**
-- https://pdf2text.rapold.io – PDF Extract Service
-- https://pve1.rapold.io – Proxmox Web UI
-
-**Infrastructure:**
-- LXC Container: CTID 104 (`pdf-extract`)
-- IP: 192.168.1.86
-- Cloudflare Tunnel: `mra_pve1_net`
-
-```bash
-# On Proxmox host (PVE-1)
-ssh pve1
-
-# Check tunnel status
-cloudflared tunnel list
-
-# Check container
-pct exec 104 -- docker ps
-
-# View logs
-pct exec 104 -- docker logs pdf-extract-service
-```
-
 ## Error Codes
 
 | HTTP Status | Meaning |
@@ -197,5 +166,4 @@ pct exec 104 -- docker logs pdf-extract-service
 
 ---
 
-**Maintainer**: RadioX Team  
 **Version**: 0.2.0

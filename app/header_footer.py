@@ -55,3 +55,4 @@ def remove_headers_footers(pages_text: List[str]) -> List[str]:
     return cleaned_pages
 
 
+
