@@ -145,8 +145,8 @@ def extract_pdf(
         pages.append(
             Page(
                 page_number=i + 1,
-                text=text if options.mode in {"paragraphs", "pages"} else "",
-                paragraphs=paragraphs,
+                text=text,  # Immer Text behalten für full_text Zusammenführung
+                paragraphs=paragraphs if options.mode == "paragraphs" else [],
             )
         )
 

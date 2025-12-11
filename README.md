@@ -119,7 +119,7 @@ curl -X POST https://pdf2text.rapold.io/extract/upload \
 |--------|------|---------|-------------|
 | `normalize_whitespace` | bool | `true` | Join broken lines, clean whitespace |
 | `remove_headers_footers` | bool | `true` | Remove repeated header/footer text |
-| `mode` | string | `"paragraphs"` | `"paragraphs"` or `"full"` |
+| `mode` | string | `"paragraphs"` | `"paragraphs"`, `"pages"`, or `"full_text"` |
 
 ## Configuration
 
